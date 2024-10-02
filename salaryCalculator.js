@@ -1,100 +1,67 @@
-// netSalaryCalculator.js
+const prompt = require('prompt-sync')();
 
-function calculateDeductions(basicSalary) {
-    // PAYE Calculation
-    let taxablePay = basicSalary; 
-    let paye = 0;
+function calculateNetSalary() {
+    let basicSalary = parseFloat(prompt('Enter basic salary: '));
+    let benefits = parseFloat(prompt('Enter benefits: '));
+    let grossSalary = basicSalary + benefits;
 
-    if (taxablePay <= 24000) {
-        paye = taxablePay * 0.10;
-    } else if (taxablePay <= 32333) {
-        paye = 2400 + (taxablePay - 24000) * 0.25;
-    } else if (taxablePay <= 500000) {
-        paye = 2400 + 2083.25 + (taxablePay - 32333) * 0.30;
-    } else if (taxablePay <= 800000) {
-        paye = 2400 + 2083.25 + 50000 + (taxablePay - 500000) * 0.325;
+    // Calculate PAYE
+    let tax = 0;
+    if (grossSalary <= 24000) {
+        tax = grossSalary * 0.1;
+    } else if (grossSalary <= 32333) {
+        tax = 2400 + (grossSalary - 24000) * 0.25;
+    } else if (grossSalary <= 500000) {
+        tax = 2400 + (8333) * 0.25 + (grossSalary - 32333) * 0.3;
+    } else if (grossSalary <= 800000) {
+        tax = 2400 + (8333) * 0.25 + (176667) * 0.3 + (grossSalary - 500000) * 0.325;
     } else {
-        paye = 2400 + 2083.25 + 50000 + 97500 + (taxablePay - 800000) * 0.35;
+        tax = 2400 + (8333) * 0.25 + (176667) * 0.3 + (300000) * 0.325 + (grossSalary - 800000) * 0.35;
     }
 
-    // NHIF Calculation
+    // NHIF
     let nhif = 0;
-    if (basicSalary <= 5999) {
+    if (grossSalary < 6000) {
         nhif = 150;
-    } else if (basicSalary <= 7999) {
+    } else if (grossSalary < 8000) {
         nhif = 300;
-    } else if (basicSalary <= 11999) {
+    } else if (grossSalary < 12000) {
         nhif = 400;
-    } else if (basicSalary <= 14999) {
+    } else if (grossSalary < 15000) {
         nhif = 500;
-    } else if (basicSalary <= 19999) {
+    } else if (grossSalary < 20000) {
         nhif = 600;
-    } else if (basicSalary <= 24999) {
+    } else if (grossSalary < 25000) {
         nhif = 750;
-    } else if (basicSalary <= 29999) {
+    } else if (grossSalary < 30000) {
         nhif = 850;
-    } else if (basicSalary <= 34999) {
+    } else if (grossSalary < 35000) {
         nhif = 900;
-    } else if (basicSalary <= 39999) {
+    } else if (grossSalary < 40000) {
         nhif = 950;
-    } else if (basicSalary <= 44999) {
+    } else if (grossSalary < 45000) {
         nhif = 1000;
-    } else if (basicSalary <= 49999) {
+    } else if (grossSalary < 50000) {
         nhif = 1100;
-    } else if (basicSalary <= 59999) {
+    } else if (grossSalary < 60000) {
         nhif = 1200;
-    } else if (basicSalary <= 69999) {
+    } else if (grossSalary < 70000) {
         nhif = 1300;
-    } else if (basicSalary <= 79999) {
+    } else if (grossSalary < 80000) {
         nhif = 1400;
-    } else if (basicSalary <= 89999) {
+    } else if (grossSalary < 90000) {
         nhif = 1500;
-    } else if (basicSalary <= 99999) {
+    } else if (grossSalary < 100000) {
         nhif = 1600;
     } else {
         nhif = 1700;
     }
 
-    // NSSF Calculation
-    let nssf = 0;
-    if (basicSalary <= 7000) {
-        nssf = basicSalary * 0.06; // Tier I
-    } else if (basicSalary <= 36000) {
-        nssf = (7000 * 0.06) + ((basicSalary - 7000) * 0.06); // Tier I + Tier II
-    } else {
-        nssf = (7000 * 0.06) + (29000 * 0.06); // Tier I + Tier II capped at 36,000
-    }
+    // NSSF
+    let nssf = grossSalary * 0.06; // Assuming both employee and employer contribute
 
-    // SHIF Calculation
-    const shif = basicSalary * 0.0275;
-
-    return {
-        paye: paye.toFixed(2),
-        nhif: nhif,
-        nssf: nssf.toFixed(2),
-        shif: shif.toFixed(2)
-    };
+    let netSalary = grossSalary - tax - nhif - nssf;
+    console.log(`Net Salary: ${netSalary}`);
 }
 
-function calculateNetSalary(basicSalary, benefits) {
-    const deductions = calculateDeductions(basicSalary);
-    const grossSalary = basicSalary + benefits;
-    const totalDeductions = parseFloat(deductions.paye) + deductions.nhif + deductions.nssf + parseFloat(deductions.shif);
-    const netSalary = grossSalary - totalDeductions;
-
-    return {
-        grossSalary: grossSalary.toFixed(2),
-        netSalary: netSalary.toFixed(2),
-        paye: deductions.paye,
-        nhif: deductions.nhif,
-        nssf: deductions.nssf,
-        shif: deductions.shif
-    };
-}
-
-// Example usage
-const basicSalary = prompt("Enter basic salary:");
-const benefits = prompt("Enter benefits:");
-const salaryDetails = calculateNetSalary(Number(basicSalary), Number(benefits));
-console.log(`Gross Salary: Ksh ${salaryDetails.grossSalary}, Net Salary: Ksh ${salaryDetails.netSalary}`);
-console.log(`PAYE: Ksh ${salaryDetails.paye}, NHIF: Ksh ${salaryDetails.nhif}, NSSF: Ksh ${salaryDetails.nssf}, SHIF: Ksh ${salaryDetails.shif}`);
+calculateNetSalary();

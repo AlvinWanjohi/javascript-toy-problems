@@ -1,18 +1,24 @@
-// speedDetector.js
+const prompt = require('prompt-sync')();
 
-function checkSpeed(speed) {
-    const speedLimit = 70;
-    if (speed < speedLimit) {
-        return "Ok";
+function checkSpeed() {
+    let speed = parseInt(prompt('Enter car speed: '));
+    
+    if (isNaN(speed)) {
+        console.log("Please enter a valid number for speed.");
+        return;
+    }
+
+    let demeritPoints = 0;
+
+    if (speed < 70) {
+        console.log("Ok");
     } else {
-        const demeritPoints = Math.floor((speed - speedLimit) / 5);
+        demeritPoints = Math.floor((speed - 70) / 5);
+        console.log(`Points: ${demeritPoints}`);
         if (demeritPoints > 12) {
-            return "License suspended";
+            console.log("License suspended");
         }
-        return `Points: ${demeritPoints}`;
     }
 }
 
-// Example usage
-const speed = prompt("Enter the speed of the car:");
-console.log(checkSpeed(Number(speed)));
+checkSpeed();
