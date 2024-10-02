@@ -1,21 +1,34 @@
-# JavaScript Toy Problems
+# Toy Problems Solutions
 
-## Description
-This repository contains solutions to three JavaScript toy problems: a Student Grade Generator, a Speed Detector, and a Net Salary Calculator.
+This repository contains JavaScript solutions for three toy problems.
 
 ## Challenges
-1. **Student Grade Generator**: Generates a grade based on student marks input (0-100).
-2. **Speed Detector**: Calculates demerit points based on car speed input.
-3. **Net Salary Calculator**: Computes the net salary based on basic salary and benefits.
 
-## Project Setup
-To run the solutions:
-1. Clone the repository to your local machine.
-2. Open each JavaScript file in your browser's console or run it in a Node.js environment.
-3. Follow the prompts to input data.
+### Challenge 1: Student Grade Generator
+A program that takes student marks as input and outputs the corresponding grade.
 
-## Author
-Your Name  Alvin Wanjohi
+**Usage:**
+1. Open `studentGradeGenerator.js`.
+2. Enter student marks when prompted.
+
+### Challenge 2: Speed Detector
+A program that checks the speed of a car and calculates demerit points based on the speed limit.
+
+**Usage:**
+1. Open `speedDetector.js`.
+2. Enter the speed of the car when prompted.
+
+### Challenge 3: Net Salary Calculator
+A program to calculate the net salary based on basic salary and benefits.
+
+**Usage:**
+1. Open `netSalaryCalculator.js`.
+2. Enter basic salary and benefits when prompted.
+
+## Installation
+
+Clone the repository and open the JavaScript files in your preferred environment to run the examples.
 
 ## License
+
 This project is licensed under the MIT License.

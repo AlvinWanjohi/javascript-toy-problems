@@ -1,20 +1,21 @@
-// gradeGenerator.js
+// studentGradeGenerator.js
+
 function getGrade(marks) {
     if (marks < 0 || marks > 100) {
-        return "Invalid marks! Please enter a number between 0 and 100.";
+        return "Invalid input. Marks should be between 0 and 100.";
     } else if (marks >= 80) {
-        return 'A';
+        return "A";
     } else if (marks >= 60) {
-        return 'B';
+        return "B";
     } else if (marks >= 50) {
-        return 'C';
+        return "C";
     } else if (marks >= 40) {
-        return 'D';
+        return "D";
     } else {
-        return 'E';
+        return "E";
     }
 }
 
 // Example usage
-const marks = parseInt(prompt("Enter student marks (0-100): "), 10);
-console.log(`Grade: ${getGrade(marks)}`);
+const marks = prompt("Enter student marks (0-100):");
+console.log(`Grade: ${getGrade(Number(marks))}`);
